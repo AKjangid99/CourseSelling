@@ -1,22 +1,40 @@
-const {Schema , default : mongoose } = require('mongoose')
+const mongoose   = require('mongoose')
+const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId
 
-const userSchema = Schema({
 
+const userSchema = new Schema({
+    email : { type : strng , unique :true},
+    password : String,
+    firstName : String ,
+    lastName :String
 })
 
-const adminSchema = Schema({
-
+const adminSchema = new  Schema({
+    email : { type : strng , unique :true},
+    password : String,
+    firstName : String ,
+    lastName :String
 })
 
-const courseSchema = Schema({
-
+const courseSchema = new  Schema({
+    tittle : String,
+    discription : String ,
+    price : Number,
+    imageUrl :String,
+    creatorId : ObjectId 
 })
 
-const parchasedCourseSchema = Schema({
-    
+const parchasedCourseSchema = new Schema({
+    userId :ObjectId,
+    courseId : ObjectId 
 })
 
-const userModel = mongoose.Model( "user" , userSchema)
-const adminModel = mongoose.Model('admin' , adminSchema)
-const courseModel = mongoose.Model('course' , courseSchema)
-const parchasedCourseModel = mongoose.Model( 'parchasedcourse', parchasedCourseSchema )
+const userModel = mongoose.model( "user" , userSchema)
+const adminModel = mongoose.model('admin' , adminSchema)
+const courseModel = mongoose.model('course' , courseSchema)
+const parchasedCourseModel = mongoose.model( 'parchasedcourse', parchasedCourseSchema )
+
+module.export = { 
+    userModel,adminModel ,courseModel ,parchasedCourseModel
+}
