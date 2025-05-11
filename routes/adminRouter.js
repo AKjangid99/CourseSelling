@@ -1,14 +1,50 @@
-const express = require(' express ')
+const express = require('express')
+const { adminModel } = require('../DB.js')
 const Router = express.Router
-const adminRouter = Router 
+const adminRouter = Router()
+const JWT = require("jsonwebtoken")
+const { admin_jwt } = require('../config.js')
 
-adminRouter.post('/signup' , function (req , res ){ 
+adminRouter.post('/signup' , async function (req , res ){ 
+    const { email, password, firstName, lastName } = req.body
+
+    await adminModel.create({
+        email : email,
+        password : password,
+        firstName : firstName,
+        lastName : lastName
+    })
     res.json ({
-        message : " Admin signup"
+        message : "signup success"
     })
 })
 
-adminRouter.post('/signin' , function (req , res ){ 
+adminRouter.post('/signin' , async function (req , res ){ 
+
+    const { email , password } = req.body
+
+    const admin = await adminModel.findOne({
+        email : email ,
+        password : password
+    })
+
+    if(admin){
+        const token = JWT.sign({
+            id : admin._id
+        }, admin_jwt)
+    
+        res.json({
+            token : token
+        })
+
+    }else{
+
+        res.status(403).json({
+            error : "Wrong email and password " 
+        })
+
+    }
+
     res.json ({
         message : " Admin signin "
     })

@@ -4,14 +4,14 @@ const ObjectId = mongoose.Types.ObjectId
 
 
 const userSchema = new Schema({
-    email : { type : strng , unique :true},
+    email : { type : String , unique :true},
     password : String,
     firstName : String ,
     lastName :String
 })
 
 const adminSchema = new  Schema({
-    email : { type : strng , unique :true},
+    email : { type : String , unique :true},
     password : String,
     firstName : String ,
     lastName :String
@@ -35,6 +35,6 @@ const adminModel = mongoose.model('admin' , adminSchema)
 const courseModel = mongoose.model('course' , courseSchema)
 const parchasedCourseModel = mongoose.model( 'parchasedcourse', parchasedCourseSchema )
 
-module.export = { 
+module.exports = { 
     userModel,adminModel ,courseModel ,parchasedCourseModel
 }
