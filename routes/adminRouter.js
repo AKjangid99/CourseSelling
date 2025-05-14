@@ -1,5 +1,5 @@
 const express = require('express')
-const { adminModel } = require('../DB.js')
+const { adminModel, courseModel } = require('../DB.js')
 const Router = express.Router
 const adminRouter = Router()
 const JWT = require("jsonwebtoken")
@@ -48,9 +48,14 @@ adminRouter.post('/signin', async function (req, res) {
     })
 })
 
-adminRouter.post('/course', function (req, res) {
+adminRouter.post('/course', async function (req, res) {
+    const adminId = req.adminId
+    const {tittle , discription, price, imageUrl} = req.body
+
+    const course =  await courseModel.create({ tittle , discription, price, imageUrl , creatorId : adminId})
     res.json({
-        message: " add new Course"
+        message: "New Course Added",
+        courseId : course._Id
     })
 })
 
