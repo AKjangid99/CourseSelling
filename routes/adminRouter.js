@@ -60,6 +60,10 @@ adminRouter.post('/course', async function (req, res) {
 })
 
 adminRouter.put('/course', function (req, res) {
+
+    const adminId = req.adminId
+    const { tittle , description , imageUrl, price , courseId  } = req.body
+
     res.json({
         message: "update Current course "
     })
