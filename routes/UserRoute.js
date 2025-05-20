@@ -1,7 +1,7 @@
 const express = require("express")
 const Router = express.Router
 const JWT = require("jsonwebtoken")
-const { user_jwt } = require('../config.js')
+
 
 // or  you can do this both are same 
 // const {Router} = require("express")

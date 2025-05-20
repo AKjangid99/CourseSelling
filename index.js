@@ -12,7 +12,7 @@ app.use(express.json())
 app.use("/user", userRouter)
 app.use("/admin", adminRouter)
 app.use("/courses", courseRouter)
-
+console.log( "hamlo " , process.env.DATABASE_URL)
 
 
 async function main() {

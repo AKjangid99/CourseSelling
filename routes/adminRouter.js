@@ -3,7 +3,7 @@ const { adminModel, courseModel } = require('../DB.js')
 const Router = express.Router
 const adminRouter = Router()
 const JWT = require("jsonwebtoken")
-const { admin_jwt } = require('../config.js')
+
 
 adminRouter.post('/signup', async function (req, res) {
     const { email, password, firstName, lastName } = req.body
