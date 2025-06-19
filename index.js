@@ -12,13 +12,17 @@ app.use(express.json())
 app.use("/user", userRouter)
 app.use("/admin", adminRouter)
 app.use("/courses", courseRouter)
-console.log( "hamlo " , process.env.DATABASE_URL)
+// console.log( "hamlo " , process.env.DATABASE_URL)
 
 
 async function main() {
-    await mongoose.connect(process.env.DATABASE_URL)
-    app.listen(3000)
-    console.log('lisning at port 3000')
+    try {
+        await mongoose.connect(process.env.DATABASE_URL)
+        app.listen(3000)
+        console.log('lisning at port 3000')
+    }catch( e ){ 
+        console.log(" error " , e )
+    }
 }
 
 main()
