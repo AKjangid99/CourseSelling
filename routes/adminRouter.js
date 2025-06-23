@@ -4,7 +4,7 @@ const Router = express.Router
 const adminRouter = Router()
 const JWT = require("jsonwebtoken")
 const admin_jwt = process.env.admin_jwt
-
+const { adminMiddleware } = require("../Middleware/admin.js");
 
 adminRouter.post('/signup', async function (req, res) {
     const { email, password, firstName, lastName } = req.body
@@ -56,24 +56,45 @@ adminRouter.post('/course', async function (req, res) {
     const course =  await courseModel.create({ tittle , discription, price, imageUrl , creatorId : adminId})
     res.json({
         message: "New Course Added",
-        courseId : course._Id
+        courseId : course._id
     })
 })
 
-adminRouter.put('/course', function (req, res) {
+adminRouter.put('/course', adminMiddleware ,async function (req, res) {
 
     const adminId = req.adminId
     const { tittle , description , imageUrl, price , courseId  } = req.body
+
+    const course =  await courseModel.updateone({
+        _id: courseId,
+        creatorId: adminId
+    },
+    { tittle , description, price, imageUrl , })
+
 
     res.json({
         message: "update Current course "
     })
 })
 
-adminRouter.get('/course/bulk', function (req, res) {
-    res.json({
-        message: " get all current courses"
+
+adminRouter.get('/course/bulk',adminMiddleware , async function (req, res) {
+    const { adminId  } = req.body 
+    const courses = await courseModel .find({
+        creatorId : adminId
     })
+
+    if( courses.length ){  
+    res.json({
+        message: " get all current courses",
+        courseDtail : courses
+    })
+    }else {
+       res.json({
+         message: "Can't Found any course",
+       })
+    }
+
 })
 
 module.exports = adminRouter
