@@ -9,6 +9,11 @@ const adminRouter = require('./routes/adminRouter');
 
 app.use(express.json())
 
+// app.use("/hamlo", function(req , res){
+//     res.json({
+//         msg : "  Hamlo  "
+//     })
+// } )
 app.use("/user", userRouter)
 app.use("/admin", adminRouter)
 app.use("/courses", courseRouter)
@@ -20,8 +25,8 @@ async function main() {
         await mongoose.connect(process.env.DATABASE_URL)
         app.listen(3000)
         console.log('lisning at port 3000')
-    }catch( e ){ 
-        console.log(" error " , e )
+    } catch (e) {
+        console.log(" error ", e)
     }
 }
 

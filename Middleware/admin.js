@@ -1,20 +1,18 @@
- const JWT = require('jsonwebtoken')
+const JWT = require('jsonwebtoken')
 
-
-function adminMiddleWare(req, res, next ){
+function adminMiddleWare(req, res, next) {
     const token = req.header.authToken
     const decode = JWT.verify(token, process.env.admin_jwt)
 
-    if(decode){
+    if (decode) {
         req.adminId = decode.id;
-        next()        
-    }else{
+        next()
+    } else {
         res.status(403).json({
-            message : 'You are not signed in '
+            message: 'You are not signed in '
         })
     }
 }
-
 module.exports = {
-    adminMiddleWare : adminMiddleWare 
+    adminMiddleWare: adminMiddleWare
 }

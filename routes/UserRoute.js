@@ -9,9 +9,7 @@ const userRouter = Router()
 const userModel = require('../DB.js')
 
 userRouter.post("/signup", function (req, res) {
-
     const { email, password, firstName, lastName } = req.body
-
     userModel.create({
         email, password, firstName, lastName
     })
@@ -22,9 +20,7 @@ userRouter.post("/signup", function (req, res) {
 })
 
 userRouter.post("/signin", async function (req, res) {
-
     const { email, password } = req.body
-
     const user = await userModel.findOne({
         email: email,
         password: password
